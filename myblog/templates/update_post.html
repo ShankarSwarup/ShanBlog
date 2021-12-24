@@ -9,6 +9,7 @@
         <div class="form-group">
         <form  method="post">
             {% csrf_token %}
+            {{form.media}}
             {{form.as_p}}
             <button class="btn btn-secondary">Update</button>
         </form>
@@ -21,7 +22,13 @@
 You're not allowed here !(and you know it)
 
 {% endif %}
-
+<script>
+    setTimeout(function(){
+        for (let editor of document.getElementsByClassName('cke_browser_webkit')){
+          editor.style.width = '100%';
+        }
+      }, 500)
+</script>
 
 
 {% endblock %}
