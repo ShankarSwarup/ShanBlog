@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile Page{%endblock%}
+{% block content %}
+{% if user.is_authenticated %}
+{% if user.id == profile.user.id %}
+<h1>Edit Profile Page....</h1>
+<br><br>
+<div class="form-group">
+<form  method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-secondary">Update Profile Page</button>
+</form>
+</div>
+
+
+<script>
+    var name = "{{ user.id }}";
+    document.getElementById("elder").value = name;
+
+    setTimeout(function(){
+        for (let editor of document.getElementsByClassName('cke_browser_webkit')){
+          editor.style.width = '100%';
+        }
+      }, 500)
+</script>
+{% else %}
+
+You are not the correct user to edit this
+
+
+{% endif %}
+{% else %}
+
+You're not allowed here !(and you know it)
+
+{% endif %}
+
+
+
+
+
+
+{% endblock %}
