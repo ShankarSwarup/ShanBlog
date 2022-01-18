@@ -11,43 +11,43 @@
   <div class="post-container">
     <ul class="post-list">
       {% for post in object_list %}
-            <li class="post">
-              <div class="post-flex">
-                <div class="post-title">
-                  <a href="{% url 'article-detail' post.pk %}">
-                    <h3> {{post.title}} </h3>
-                  </a> 
-                </div>
-                <div class="tag-det-con">
-                  <a href="{% url 'category' post.category|slugify %}">
-                      #{{post.category}}
-                  </a> 
-                  <h6> 
-                      {{post.author.first_name}}
-                      {{post.author.last_name}} 
-                      {{post.post_date}}  
-                  </h6>
-                </div>
+        <li class="post">
+          <div class="post-flex">
+            <div class="post-title">
+              <a href="{% url 'article-detail' post.pk %}">
+                <h3> {{post.title}} </h3>
+              </a> 
+            </div>
+            <div class="tag-det-con">
+              <a href="{% url 'category' post.category|slugify %}">
+                  #{{post.category}}
+              </a> 
+              <h6> 
+                  {{post.author.first_name}}
+                  {{post.author.last_name}} 
+                  {{post.post_date}}  
+              </h6>
+            </div>
+          </div>
+          {% if user.is_authenticated %} 
+          <div class="edit-delete">
+                {% if user.id == post.author.id %}
+                <a href="{% url 'update_post' post.pk %}">
+                    Edit
+                </a> 
+                - <a href="{% url 'delete_post' post.pk %}">
+                    Delete
+                </a> 
+                {% endif %}
               </div>
-              {% if user.is_authenticated %} 
-              <div class="edit-delete">
-                    {% if user.id == post.author.id %}
-                    <a href="{% url 'update_post' post.pk %}">
-                        Edit
-                    </a> 
-                    - <a href="{% url 'delete_post' post.pk %}">
-                        Delete
-                    </a> 
-                    {% endif %}
-                  </div>
-                {% endif %} 
-                <div class="post-snippet">
-                  {{ post.snippet }} 
-                </div>  
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+            {% endif %} 
+            <div class="post-snippet">
+              {{ post.snippet }} 
+            </div>  
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 
 
