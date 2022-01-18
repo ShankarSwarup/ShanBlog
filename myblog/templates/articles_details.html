@@ -3,6 +3,8 @@
 {% block title %}{{ post.title_tag }}{%endblock%}
 {% block content %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'articles_details_styles.css'%}">
 <h1>{{ post.title }}</h1>
 <small>By: 
     {{post.author.first_name}} 
@@ -18,10 +20,17 @@
 <br />
 <hr>
 <br />
-{% if post.header_image %}
-<img src="{{post.header_image.url}}" height="300px"><br/><br/>
-{% endif %}
-{{post.body|safe}}
+<div class="post-container">
+   <div class="post-text">
+      <h2>Post</h2>
+      {{post.body|safe}}
+   </div>
+   <div class="post-img">
+      {% if post.header_image %}
+         <img src="{{post.header_image.url}}" height="300px"><br/><br/>
+      {% endif %}
+   </div>
+</div>
 <br />
 <br />
 <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
@@ -29,19 +38,23 @@
 <form action="{% url 'like_post' post.pk %}" method="POST">
    {% csrf_token %}
    {% if user.is_authenticated %} 
-      {% if liked %}
-         <button type="submit" , name="post_id" , value="{{ post.id }}" , class="btn btn-danger btn-sm">UnLike</button> 
-      {% else %}    
-         <button type="submit" , name="post_id" , value="{{ post.id }}" , class="btn btn-primary btn-sm">like</button>
+   <div class="flex-like">
+         {% if liked %}
+            <button type="submit" , name="post_id" , value="{{ post.id }}" , class="btn btn-danger btn-sm">👎</button> 
+         {% else %}    
+            <button type="submit" , name="post_id" , value="{{ post.id }}" , class="btn btn-primary btn-sm">👍</button>
+         {% endif %}
+      {% else %}
+      <a class="nav-link" href="{% url 'login' %}">Login to Like</a>
       {% endif %}
-   {% else %}
-   <a class="nav-link" href="{% url 'login' %}">Login to Like</a>
-   {% endif %}
-   {{ total_likes }}Likes
+      
+      <span style="font-size: 28px">&nbsp; {{ total_likes }}</span><span style="color: red; font-size: 33px">♥</span>
+   </div>
 </form>
 
 <br><br>
 
+<h2>Posted by:</h2>
 
 <div class="card mb-3">
    <div class="row g-0">
