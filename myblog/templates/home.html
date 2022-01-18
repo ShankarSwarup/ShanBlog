@@ -33,10 +33,14 @@
           <div class="edit-delete">
                 {% if user.id == post.author.id %}
                 <a href="{% url 'update_post' post.pk %}">
+                  <button type="button" class="btn btn-primary">
                     Edit
+                  </button>
                 </a> 
                 - <a href="{% url 'delete_post' post.pk %}">
+                  <button type="button" class="btn btn-danger">
                     Delete
+                  </button>
                 </a> 
                 {% endif %}
               </div>
