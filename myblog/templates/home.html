@@ -1,26 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Post</h1>
+{% load static %}
+<link rel="stylesheet" href="{% static 'home_styles.css'%}">
 
-<ul>
-    {% for post in object_list %}
-    <li><a href="{% url 'article-detail' post.pk %}">{{post.title}}</a> 
-        - <a href="{% url 'category' post.category|slugify %}">{{post.category}}</a> 
-        - {{post.author.first_name}}
-        {{post.author.last_name}} 
-        - {{post.post_date}} 
-        {% if user.is_authenticated %} 
-            {% if user.id == post.author.id %}
-            <a href="{% url 'update_post' post.pk %}">Edit</a> 
-            - <a href="{% url 'delete_post' post.pk %}">Delete</a> 
-            {% endif %}
-        {% endif %} <br /> 
-        {{ post.snippet }} 
-    </li>
-    {% endfor %}
-</ul>
-
+<div class="posts">
+  <div class="posts-head">
+    <h1>Posts</h1>
+  </div>
+  <div class="post-container">
+    <ul class="post-list">
+      {% for post in object_list %}
+            <li class="post">
+              <div class="post-flex">
+                <div class="post-title">
+                  <a href="{% url 'article-detail' post.pk %}">
+                    <h3> {{post.title}} </h3>
+                  </a> 
+                </div>
+                <div class="tag-det-con">
+                  <a href="{% url 'category' post.category|slugify %}">
+                      #{{post.category}}
+                  </a> 
+                  <h6> 
+                      {{post.author.first_name}}
+                      {{post.author.last_name}} 
+                      {{post.post_date}}  
+                  </h6>
+                </div>
+              </div>
+              {% if user.is_authenticated %} 
+              <div class="edit-delete">
+                    {% if user.id == post.author.id %}
+                    <a href="{% url 'update_post' post.pk %}">
+                        Edit
+                    </a> 
+                    - <a href="{% url 'delete_post' post.pk %}">
+                        Delete
+                    </a> 
+                    {% endif %}
+                  </div>
+                {% endif %} 
+                <div class="post-snippet">
+                  {{ post.snippet }} 
+                </div>  
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 
 {% endblock %}
