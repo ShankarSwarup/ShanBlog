@@ -12,25 +12,41 @@
     <ul class="post-list">
       {% for post in object_list %}
         <li class="post">
+          <div class="imgBx">
+            <div class="imgBox">
+              {% if post.header_image %}
+              <img src="{{post.author.profile.profile_pic.url}}"><br/><br/>
+              {% else %}
+              <img src="{% static 'myblog/images/elon.jpg' %}" alt="profile_pic">
+              {% endif %}
+            </div>
+
+            <h7> 
+              {{post.author.first_name}}
+              {{post.author.last_name}} 
+              <!-- {{post.post_date}}   -->
+            </h7>
+
+
+          </div>
           <div class="post-flex">
             <div class="post-title">
               <a href="{% url 'article-detail' post.pk %}">
                 <h3> {{post.title}} </h3>
               </a> 
             </div>
+            <div class="post-snippet">
+              {{ post.snippet }} 
+            </div> 
             <div class="tag-det-con">
-              <a href="{% url 'category' post.category|slugify %}">
-                  #{{post.category}}
-              </a> 
-              <h6> 
-                  {{post.author.first_name}}
-                  {{post.author.last_name}} 
-                  {{post.post_date}}  
-              </h6>
-            </div>
-          </div>
-          {% if user.is_authenticated %} 
-          <div class="edit-delete">
+              <a href="{% url 'category' post.category|slugify %}" id="cat">
+                  Category - {{post.category}}
+              </a>   
+            </div> 
+            
+            
+            {% if user.is_authenticated %} 
+              <div class="edit-delete">
                 {% if user.id == post.author.id %}
                 <a href="{% url 'update_post' post.pk %}">
                   <button type="button" class="btn btn-primary">
@@ -45,9 +61,11 @@
                 {% endif %}
               </div>
             {% endif %} 
-            <div class="post-snippet">
-              {{ post.snippet }} 
-            </div>  
+
+            <div class="date">
+              {{post.post_date}}
+            </div>
+          </div>
         </li>
       {% endfor %}
     </ul>
