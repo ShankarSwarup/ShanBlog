@@ -5,6 +5,7 @@
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'articles_details_styles.css'%}">
+<div class="common">
 <h1>{{ post.title }}</h1>
 <small>By: 
     {{post.author.first_name}} 
@@ -90,6 +91,6 @@
      </div>
    </div>
  </div>
-
+</div>
 
 {% endblock %}

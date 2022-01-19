@@ -1,4 +1,10 @@
-
+body{
+    background-color: bisque;
+}
+.common{
+    background-color: white;
+    padding: 20px;
+}
 .flex-like{
     display: flex;
     align-items: center;
