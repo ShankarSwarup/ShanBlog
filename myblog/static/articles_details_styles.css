@@ -1,0 +1,24 @@
+
+.flex-like{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+.post-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.post-text{
+    /* border: 1px solid black; */
+    width: 40%;
+}
+
+@media only screen and (max-width: 768px) {
+    .post-container{
+        display: block;
+    }
+    .post-text{
+        width: 80%;
+    }
+}

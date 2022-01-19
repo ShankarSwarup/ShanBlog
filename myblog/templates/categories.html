@@ -1,14 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'home_styles.css'%}">
 {% if category_posts %}
-<h1>{{ cats }}</h1>
 
-<ul>
-{% for post in category_posts %}
-<li><a href="{% url 'article-detail' post.pk %}" >{{post.title}}</a> - {{post.category}} - {{post.author.first_name}} {{post.author.last_name}} - {{post.post_date}} {% if user.is_authenticated %} <a href="{% url 'update_post' post.pk %}">Edit</a> - <a href="{% url 'delete_post' post.pk %}">Delete</a> {% endif %}<br/> {{post.body | slice:":200" | safe}} </li>
-{% endfor %}
-</ul>
+<div class="posts">
+  <div class="posts-head">
+    <h1>Posts</h1>
+  </div>
+  <div class="post-container">
+    <ul class="post-list">
+      {% for post in category_posts %}
+        <li class="post">
+          <div class="imgBx">
+            <div class="imgBox">
+              {% if post.header_image %}
+              <img src="{{post.author.profile.profile_pic.url}}"><br/><br/>
+              {% else %}
+              <img src="{% static 'myblog/images/elon.jpg' %}" alt="profile_pic">
+              {% endif %}
+            </div>
+
+            <h7> 
+              {{post.author.first_name}}
+              {{post.author.last_name}} 
+              <!-- {{post.post_date}}   -->
+            </h7>
+
+
+          </div>
+          <div class="post-flex">
+            <div class="post-title">
+              <a href="{% url 'article-detail' post.pk %}">
+                <h3> {{post.title}} </h3>
+              </a> 
+            </div>
+            <div class="post-snippet">
+              {{ post.snippet }} 
+            </div> 
+            <div class="tag-det-con">
+              <a href="{% url 'category' post.category|slugify %}" id="cat">
+                  Category - {{post.category}}
+              </a>   
+            </div> 
+            
+            
+            {% if user.is_authenticated %} 
+              <div class="edit-delete">
+                {% if user.id == post.author.id %}
+                <a href="{% url 'update_post' post.pk %}">
+                  <button type="button" class="btn btn-primary">
+                    Edit
+                  </button>
+                </a> 
+                 <a href="{% url 'delete_post' post.pk %}">
+                  <button type="button" class="btn btn-danger">
+                    Delete
+                  </button>
+                </a> 
+                {% endif %}
+              </div>
+            {% endif %} 
+
+            <div class="date">
+              {{post.post_date}}
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 
 {% else %}
   <h2>Sorry There are no posts in this category!!</h2>
@@ -17,3 +79,4 @@
 
 
 {% endblock %}
+

@@ -1,0 +1,10 @@
+body{
+    background-color: bisque;
+}
+.form-group{
+    border: 1px solid rgb(33,37,41);
+    border-radius: 7px;
+    background-color: rgb(33,37,41);
+    color: white;
+    padding: 35px;
+}
