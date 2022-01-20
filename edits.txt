@@ -1,0 +1,1 @@
+delete static/myblog/elon.jpg folder

@@ -1,0 +1,29 @@
+body{
+    background-color: bisque;
+}
+.common{
+    background-color: white;
+    padding: 20px;
+}
+.flex-like{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+.post-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* .post-text{
+    width: 40%;
+} */
+.box{
+    margin: auto;
+    width: 80%;
+}
+@media only screen and (max-width: 990px) {
+    .post-container{
+        flex-wrap: wrap;
+    }
+}
