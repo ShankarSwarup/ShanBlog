@@ -32,6 +32,17 @@ class HomeView(ListView):
         context["cat_menu"] = cat_menu
         return context
 
+class blogsView(ListView):
+    model = Post
+    template_name = 'myblogs.html'
+    ordering = ['-post_date']
+
+    def get_context_data(self,*args,**kwargs):
+        cat_menu = Category.objects.all()
+        context = super(blogsView,self).get_context_data(*args,**kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+
 def CategoryListView(request):
     cat_menu_list = Category.objects.all()
     return render(request,'category_list.html',{'cat_menu_list':cat_menu_list})
@@ -85,3 +96,8 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+class DeletePostsView(DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('myblogs')

@@ -4,6 +4,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'home_styles.css'%}">
 
+{% if user.is_authenticated %} 
 <div class="posts">
   <div class="posts-head">
       <h1>Posts</h1>
@@ -11,6 +12,7 @@
   <div class="post-container">
       <ul class="post-list">
           {% for post in object_list %}
+             {% if user.id == post.author.id %}
               <li class="post">
                   <div class="imgBx">
                       {% if post.header_image %}
@@ -31,18 +33,22 @@
                           {% if user.is_authenticated %} 
                           {% if user.id == post.author.id %}
                           <div class="buttons">
-                              <a href="{% url 'update_post' post.pk %}" class="edit"><button type="button" class="btn btn-success btn-sm">Edit</button></a>
-                              <a href="{% url 'delete_post' post.pk %}" class="delete"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+                              <a href="{% url 'update_post' post.pk %}" class="edit"><button type="button" class="btn btn-success">Edit</button></a>
+                              <a href="{% url 'delete_post' post.pk %}" class="delete"><button type="button" class="btn btn-danger">Delete</button></a>
                           </div>
                           {% endif %}
                           {% endif %}
                       </div>              
                   </div>    
               </li>
+              {% endif %}
               {% endfor %}
       </ul>
   </div>
 </div>
+{% else %}
+<h6>You are not able to access this</h6>
+{% endif %}
 
 
 {% endblock %}
