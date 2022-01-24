@@ -1,4 +1,10 @@
-
+body{
+    background-color: bisque;
+}
+.common{
+    background-color: white;
+    padding: 20px;
+}
 .flex-like{
     display: flex;
     align-items: center;
@@ -9,16 +15,15 @@
     justify-content: space-between;
     align-items: center;
 }
-.post-text{
-    /* border: 1px solid black; */
+/* .post-text{
     width: 40%;
+} */
+.box{
+    margin: auto;
+    width: 80%;
 }
-
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 990px) {
     .post-container{
-        display: block;
-    }
-    .post-text{
-        width: 80%;
+        flex-wrap: wrap;
     }
 }
